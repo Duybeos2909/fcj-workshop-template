@@ -1,7 +1,7 @@
 ---
 title: "Events Participated"
 date: 2024-01-01
-weight: 4
+weight: 3
 chapter: false
 pre: " <b> 4. </b> "
 ---
@@ -10,7 +10,7 @@ pre: " <b> 4. </b> "
 >
 > Through these activities, I gained practical knowledge, expanded my professional network, and strengthened both my technical and soft skills, which could be directly applied to my internship project and future career.
 
-During my internship, I participated in **three** community events. Each event offered unique learning experiences, practical technical knowledge, and valuable insights from experienced speakers in the cloud computing industry.
+During my internship, I participated in **two** community events. Each event offered unique learning experiences, practical technical knowledge, and valuable insights from experienced speakers in the cloud computing industry.
 
 ### [Event 1](4.1-Event1/)
 &emsp;**Event Name:** FCJ Community Day - Stop Procrastinating, Start Building

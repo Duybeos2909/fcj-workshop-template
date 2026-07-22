@@ -1,7 +1,7 @@
 ---
 title: "Sự kiện tham gia"
 date: 2024-01-01
-weight: 4
+weight: 3
 chapter: false
 pre: " <b> 4. </b> "
 ---
@@ -10,7 +10,7 @@ pre: " <b> 4. </b> "
 >
 > Thông qua các sự kiện này, em không chỉ mở rộng kiến thức chuyên môn mà còn có cơ hội giao lưu, học hỏi kinh nghiệm thực tế, định hướng nghề nghiệp và áp dụng những kiến thức thu được vào dự án thực tập cũng như quá trình học tập sau này.
 
-Trong quá trình thực tập, em đã tham gia **03 sự kiện** do cộng đồng **First Cloud Journey AI (FCAJ)** tổ chức. Mỗi sự kiện đều mang đến những chủ đề khác nhau về Cloud Computing, AI, DevOps, Cybersecurity và kỹ năng phát triển bản thân, giúp em có thêm nhiều kiến thức và kinh nghiệm thực tiễn.
+Trong quá trình thực tập, em đã tham gia **02 sự kiện** do cộng đồng **First Cloud Journey AI (FCAJ)** tổ chức. Mỗi sự kiện đều mang đến những chủ đề khác nhau về Cloud Computing, AI, DevOps, Cybersecurity và kỹ năng phát triển bản thân, giúp em có thêm nhiều kiến thức và kinh nghiệm thực tiễn.
 
 ### [Sự kiện 1](4.1-Event1/)
 &emsp;**Tên sự kiện:** FCJ Community Day - Stop Procrastinating, Start Building
