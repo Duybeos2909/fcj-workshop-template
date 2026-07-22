@@ -1,5 +1,5 @@
-baseURL = "https://duybeos2909.github.io/fcj-workshop-template/"
-relativeURLs = false
+baseURL = "https://Duybeos2909.github.io/fcj-workshop-template/"
+relativeURLs = true
 canonifyURLs = true
 defaultContentLanguage = "en"
 

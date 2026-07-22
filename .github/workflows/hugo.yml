@@ -23,7 +23,7 @@ jobs:
           extended: true
 
       - name: Build website
-        run: hugo --minify
+        run: hugo --gc --cleanDestinationDir --minify --baseURL "https://Duybeos2909.github.io/fcj-workshop-template/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
