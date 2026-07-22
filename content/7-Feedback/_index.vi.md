@@ -1,44 +1,90 @@
 ---
-title: "Chia sẻ, đóng góp ý kiến"
+title: "Chia sẻ và Đánh giá"
 date: 2024-01-01
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
->Tại đây bạn có thể tự do đóng góp ý kiến cá nhân về những trải nghiệm khi tham gia chương trình First Cloud AI Journey, giúp team FCAJ cải thiện những vấn đề còn thiếu sót dựa trên các hạng mục sau:
-
-### Đánh giá chung
-
-**1. Môi trường làm việc**  
-Môi trường làm việc rất thân thiện và cởi mở. Các thành viên trong FCAJ luôn sẵn sàng hỗ trợ khi mình gặp khó khăn, kể cả ngoài giờ làm việc. Không gian làm việc gọn gàng, thoải mái, giúp mình tập trung tốt hơn. Tuy nhiên, mình nghĩ có thể bổ sung thêm một số buổi giao lưu hoặc team bonding để mọi người hiểu nhau hơn.
-
-**2. Sự hỗ trợ của mentor / team admin**  
-Mentor hướng dẫn rất chi tiết, giải thích rõ ràng khi mình chưa hiểu và luôn khuyến khích mình đặt câu hỏi. Team admin hỗ trợ các thủ tục, tài liệu và tạo điều kiện để mình làm việc thuận lợi. Mình đánh giá cao việc mentor cho phép mình thử và tự xử lý vấn đề thay vì chỉ đưa đáp án.
-
-**3. Sự phù hợp giữa công việc và chuyên ngành học**  
-Công việc mình được giao phù hợp với kiến thức mình đã học ở trường, đồng thời mở rộng thêm những mảng mới mà mình chưa từng được tiếp cận. Nhờ vậy, mình vừa củng cố kiến thức nền tảng, vừa học thêm kỹ năng thực tế.
-
-**4. Cơ hội học hỏi & phát triển kỹ năng**  
-Trong quá trình thực tập, mình học được nhiều kỹ năng mới như sử dụng công cụ quản lý dự án, kỹ năng làm việc nhóm, và cả cách giao tiếp chuyên nghiệp trong môi trường công ty. Mentor cũng chia sẻ nhiều kinh nghiệm thực tế giúp mình định hướng tốt hơn cho sự nghiệp.
-
-**5. Văn hóa & tinh thần đồng đội**  
-Văn hóa công ty rất tích cực: mọi người tôn trọng lẫn nhau, làm việc nghiêm túc nhưng vẫn vui vẻ. Khi có dự án gấp, mọi người cùng nhau cố gắng, hỗ trợ không phân biệt vị trí. Điều này giúp mình cảm thấy mình là một phần của tập thể, dù chỉ là thực tập sinh.
-
-**6. Chính sách / phúc lợi cho thực tập sinh**  
-Công ty có hỗ trợ phụ cấp thực tập và tạo điều kiện về thời gian linh hoạt khi cần thiết. Ngoài ra, việc được tham gia các buổi đào tạo nội bộ là một điểm cộng lớn.
 
 
-### Một số câu hỏi khác
-- Điều bạn **hài lòng nhất** trong thời gian thực tập?  
-- Điều bạn nghĩ công ty **cần cải thiện** cho các thực tập sinh sau?  
-- Nếu giới thiệu cho bạn bè, bạn có **khuyên họ thực tập ở đây không**? Vì sao?  
 
+> Phần này trình bày những chia sẻ, cảm nhận và đánh giá cá nhân của em sau khi hoàn thành chương trình thực tập tại **First Cloud AI Journey (FCAJ)**. Đồng thời, em cũng đưa ra một số đề xuất nhằm góp phần cải thiện chất lượng chương trình cho các khóa thực tập sau.
 
-### Đề xuất & mong muốn
-- Bạn có đề xuất gì để cải thiện trải nghiệm trong kỳ thực tập?  
-- Bạn có muốn tiếp tục chương trình này trong tương lai?
-- Góp ý khác (tự do chia sẻ):
+## Đánh giá chung
+
+### 1. Môi trường thực tập
+
+Môi trường học tập và thực hành tại **First Cloud AI Journey (FCAJ)** mang tính cởi mở, năng động và khuyến khích tinh thần tự học rất cao. Trong suốt quá trình thực tập, em có cơ hội tiếp cận nhiều công nghệ mới trên nền tảng AWS cũng như được trực tiếp nghiên cứu các bài toán thực tế thay vì chỉ học lý thuyết.
+
+Các kênh trao đổi của cộng đồng luôn hoạt động sôi nổi, giúp các thành viên dễ dàng chia sẻ kiến thức, giải đáp thắc mắc và hỗ trợ lẫn nhau khi gặp khó khăn trong quá trình thực hiện Lab hoặc dự án. Điều này tạo nên một môi trường học tập tích cực và thúc đẩy tinh thần chủ động của mỗi thực tập sinh.
+
+### 2. Sự hỗ trợ từ Mentor và Ban tổ chức
+
+Mentor trong chương trình luôn đóng vai trò là người định hướng thay vì chỉ đưa ra đáp án. Khi gặp các vấn đề liên quan đến cấu hình AWS hoặc triển khai hệ thống, em thường được hướng dẫn cách phân tích nguyên nhân, đọc log trên CloudWatch và từng bước tìm ra giải pháp phù hợp.
+
+Bên cạnh đó, đội ngũ Admin luôn cập nhật thông báo kịp thời, tổ chức nhiều buổi Community Day, Workshop và các hoạt động chia sẻ kiến thức giúp thực tập sinh có thêm cơ hội học hỏi từ các chuyên gia cũng như những người đã có kinh nghiệm làm việc trong lĩnh vực Cloud Computing.
+
+### 3. Mức độ phù hợp với chuyên ngành
+
+Các nội dung trong chương trình thực tập có sự liên kết chặt chẽ với chuyên ngành Công nghệ Thông tin, đặc biệt là các lĩnh vực **Cloud Computing, DevOps và AWS Serverless**.
+
+Thông qua việc nghiên cứu các dịch vụ AWS, xây dựng Workshop, viết Blog kỹ thuật và thiết kế kiến trúc hệ thống cho dự án **Smart Attendance SaaS Platform**, em đã có cơ hội vận dụng những kiến thức đã học tại trường vào các tình huống thực tế, đồng thời hiểu rõ hơn về quy trình phát triển và triển khai một hệ thống trên nền tảng điện toán đám mây.
+
+### 4. Cơ hội học hỏi và phát triển kỹ năng
+
+Đây là điểm mà em đánh giá cao nhất trong chương trình thực tập.
+
+Ngoài việc được tìm hiểu nhiều dịch vụ AWS mới, em còn có cơ hội rèn luyện các kỹ năng như:
+
+- Thiết kế kiến trúc hệ thống trên AWS.
+- Viết tài liệu kỹ thuật và Workshop.
+- Xây dựng Blog chia sẻ kiến thức.
+- Trình bày ý tưởng và báo cáo tiến độ công việc.
+- Làm việc nhóm và trao đổi chuyên môn.
+- Tự nghiên cứu tài liệu chính thức của AWS để giải quyết vấn đề.
+
+Thông qua các buổi Community Day, em cũng được lắng nghe nhiều chia sẻ thực tế từ các diễn giả về xu hướng công nghệ, AI, Cloud Computing và định hướng nghề nghiệp trong tương lai.
+
+### 5. Văn hóa cộng đồng
+
+Một trong những điểm nổi bật của FCAJ là văn hóa chia sẻ kiến thức giữa các thành viên.
+
+Mọi người luôn sẵn sàng hỗ trợ nhau khi gặp lỗi trong quá trình triển khai Lab hoặc thực hiện dự án. Không khí trao đổi cởi mở giúp em cảm thấy tự tin hơn khi đặt câu hỏi cũng như chia sẻ những kiến thức mình tìm hiểu được với các thành viên khác.
+
+### 6. Chính sách và tài nguyên hỗ trợ
+
+Chương trình đã cung cấp đầy đủ tài liệu học tập, các buổi hướng dẫn và môi trường Sandbox AWS để thực hành mà không cần lo lắng về chi phí sử dụng dịch vụ.
+
+Điều này giúp em có cơ hội trải nghiệm nhiều dịch vụ AWS như Amazon EC2, Amazon S3, Amazon CloudFront, Amazon API Gateway, AWS Lambda, Amazon DynamoDB, Amazon Cognito và nhiều dịch vụ khác trong môi trường gần giống với thực tế.
+
+---
+
+## Khảo sát và phản hồi
+
+### Điều em hài lòng nhất
+
+Điều em hài lòng nhất là được trực tiếp tiếp cận hệ sinh thái AWS và có cơ hội thực hành thông qua các bài Lab, Workshop cũng như dự án thực tế. Việc tự tay thiết kế kiến trúc hệ thống, nghiên cứu các dịch vụ AWS và xây dựng tài liệu kỹ thuật giúp em hiểu rõ hơn về cách triển khai một hệ thống Cloud hoàn chỉnh.
+
+### Những điểm có thể cải thiện
+
+Em mong chương trình có thể bổ sung thêm các buổi đánh giá cá nhân (One-on-One Review) ở giữa kỳ thực tập. Điều này sẽ giúp Mentor đánh giá tiến độ học tập của từng thực tập sinh, chỉ ra những điểm mạnh và những kỹ năng cần cải thiện trước khi bước vào giai đoạn hoàn thiện dự án cuối khóa.
+
+### Có sẵn sàng giới thiệu chương trình cho người khác không?
+
+**Có.**
+
+Em sẵn sàng giới thiệu chương trình thực tập First Cloud AI Journey cho các bạn sinh viên yêu thích lĩnh vực Cloud Computing, DevOps hoặc AWS. Chương trình mang lại nhiều kiến thức thực tế, môi trường học tập tích cực và giúp người học xây dựng nền tảng tốt để phát triển nghề nghiệp sau này.
+
+---
+
+## Đề xuất và mong muốn
+
+Để chương trình ngày càng hoàn thiện hơn, em xin đề xuất một số ý kiến như sau:
+
+- **Xây dựng lộ trình chứng chỉ AWS:** Bổ sung các buổi hướng dẫn hoặc tài liệu ôn tập dành cho các chứng chỉ quốc tế như **AWS Certified Cloud Practitioner** hoặc **AWS Certified Solutions Architect – Associate**, giúp sinh viên có định hướng rõ ràng hơn sau khi hoàn thành chương trình.
+
+- **Tăng cường các buổi chia sẻ giữa các nhóm:** Tổ chức những buổi trình bày ngắn để các nhóm giới thiệu kiến trúc dự án của mình. Qua đó, các thực tập sinh có thể học hỏi thêm nhiều cách tiếp cận và giải quyết bài toán khác nhau.
+
+- **Bổ sung nội dung chuyên sâu về Infrastructure as Code (IaC):** Ngoài AWS SAM, có thể mở rộng thêm các Workshop hoặc tài liệu hướng dẫn về **Terraform**, **AWS CloudFormation** hoặc **AWS CDK** nhằm giúp sinh viên tiếp cận đầy đủ hơn với quy trình triển khai hạ tầng hiện đại trong doanh nghiệp.
+
+Nhìn chung, chương trình thực tập tại **First Cloud AI Journey (FCAJ)** đã mang đến cho em nhiều kiến thức, kinh nghiệm thực tế và cơ hội phát triển bản thân. Đây là một hành trình ý nghĩa giúp em hiểu rõ hơn về lĩnh vực Cloud Computing, nâng cao kỹ năng chuyên môn và tạo nền tảng vững chắc cho con đường nghề nghiệp trong tương lai.
