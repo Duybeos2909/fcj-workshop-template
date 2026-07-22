@@ -28,7 +28,7 @@ During this workshop, you will build and deploy a complete **Smart Attendance Sa
 
 The following diagram illustrates the overall architecture that will be implemented throughout this workshop.
 
-![Smart Attendance SaaS Architecture](images/SaasArchitecture.png)
+![Smart Attendance SaaS Architecture](/static/images/SaasArchitecture.png)
 
 #### Learning Objectives
 
