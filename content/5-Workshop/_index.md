@@ -30,4 +30,3 @@ Throughout the workshop, you will practice:
 4. [DynamoDB Single-Table Design & DynamoDB Streams](5.4-DynamoDB/)
 5. [Build Asynchronous Reporting Workflow](5.5-Reporting-Workflow/)
 6. [Deploy React SPA Frontend & CloudFront CDN](5.6-Frontend/)
-7. [End-to-End Testing & Resource Cleanup](5.7-Cleanup/)

@@ -30,4 +30,3 @@ Thông qua workshop, bạn sẽ thực hành:
 4. [Thiết kế Single-Table trên DynamoDB & DynamoDB Streams](5.4-DynamoDB/)
 5. [Xây dựng quy trình tạo báo cáo bất đồng bộ](5.5-Reporting-Workflow/)
 6. [Triển khai Frontend React SPA & CloudFront CDN](5.6-Frontend/)
-7. [Kiểm thử toàn bộ hệ thống và dọn dẹp tài nguyên](5.7-Cleanup/)
