@@ -28,7 +28,7 @@ Trong workshop này, bạn sẽ xây dựng và triển khai một giải pháp 
 
 Sơ đồ dưới đây minh họa kiến trúc tổng thể sẽ được triển khai xuyên suốt workshop.
 
-![Smart Attendance SaaS Architecture](../../images/SaasArchitecture.png)
+![Smart Attendance SaaS Architecture](../../../images/SaasArchitecture.png)
 
 #### Mục tiêu học tập
 
