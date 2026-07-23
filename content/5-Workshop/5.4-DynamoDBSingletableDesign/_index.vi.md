@@ -120,297 +120,150 @@ Cách triển khai này đảm bảo:
 
 #### 3. Kiểm tra bảng DynamoDB trên AWS Console
 
-Mở:
+Mở Amazon DynamoDB Console theo đường dẫn:
 
 ```text
 AWS Management Console
-→ DynamoDB
+→ Amazon DynamoDB
 → Tables
-→ smart-attendance-database
 ```
 
-Kiểm tra các thông tin trong phần **Overview**.
-
-##### Capacity Mode
-
-Bảng sử dụng:
+Sau khi triển khai hạ tầng thành công, hệ thống sẽ tạo một bảng DynamoDB có tên:
 
 ```text
-On-Demand
+smart-attendance-database
 ```
 
-Ưu điểm:
+Kiểm tra bảng đã xuất hiện trong danh sách và có các thông tin sau:
 
-+ Không cần cấu hình trước số lượng Read/Write Capacity.
-+ Tự động mở rộng theo lưu lượng truy cập.
-+ Chỉ tính phí theo số lượng request thực tế.
-+ Phù hợp cho môi trường phát triển và hệ thống có lưu lượng không ổn định.
++ **Trạng thái bảng:** Active
++ **Partition Key:** `PK`
++ **Sort Key:** `SK`
++ **Chế độ đọc:** On-Demand
++ **Chế độ ghi:** On-Demand
 
-##### Primary Key
+![Bảng DynamoDB của Smart Attendance](../../../images/A4.png)
 
-Kiểm tra bảng sử dụng:
+Chọn bảng **smart-attendance-database** để mở trang cấu hình chi tiết.
+
+---
+
+##### Cấu hình tổng quan của bảng
+
+Trong tab **Settings**, kiểm tra phần thông tin tổng quan của bảng DynamoDB.
+
+Xác nhận các giá trị sau:
 
 ```text
 Partition key: PK
 Sort key: SK
+Capacity mode: On-Demand
+Table status: Active
 ```
+
+Sự kết hợp giữa `PK` và `SK` giúp xác định duy nhất mỗi bản ghi được lưu trong bảng.
+
+Chế độ **On-Demand** tự động điều chỉnh năng lực đọc và ghi dựa trên lưu lượng thực tế của ứng dụng mà không cần cấu hình trước công suất.
+
+Chế độ này phù hợp với hệ thống Smart Attendance SaaS vì:
+
++ Không cần lập kế hoạch trước về Read Capacity và Write Capacity.
++ Lưu lượng truy cập có thể thay đổi giữa các tenant.
++ Hệ thống chỉ tính phí dựa trên số lượng request đọc và ghi thực tế.
++ Phù hợp với lưu lượng Check-in và Check-out không ổn định.
++ Giúp đơn giản hóa quá trình quản trị cơ sở dữ liệu trong môi trường phát triển và trình diễn.
+
+![Cấu hình tổng quan DynamoDB](../../../images/A5.png)
+
+---
+
+##### Point-in-Time Recovery
+
+Mở tab **Backups** và kiểm tra tính năng **Point-in-Time Recovery (PITR)** đã được bật.
+
+Trạng thái mong đợi:
+
+```text
+Point-in-Time Recovery: On
+```
+
+PITR liên tục bảo vệ dữ liệu trong bảng DynamoDB và cho phép quản trị viên khôi phục bảng về một thời điểm cụ thể trong khoảng thời gian phục hồi được hỗ trợ.
+
+Tính năng này giúp bảo vệ hệ thống trước các trường hợp:
+
++ Vô tình xóa dữ liệu chấm công.
++ Ứng dụng cập nhật sai dữ liệu.
++ Dữ liệu bị lỗi hoặc hỏng.
++ Sai sót trong quá trình vận hành.
++ Lỗi phát sinh trong quá trình triển khai.
+
+![Cấu hình Point-in-Time Recovery](../../../images/A6.png)
+
+AWS Console cũng hiển thị các thông tin như:
+
++ Khoảng thời gian phục hồi.
++ Thời điểm khôi phục sớm nhất.
++ Thời điểm khôi phục gần nhất.
++ Các bản sao lưu hiện có.
++ Trạng thái và thời gian tạo bản sao lưu.
+
+---
+
+##### Trạng thái bản sao lưu DynamoDB
+
+Kiểm tra danh sách bản sao lưu hiển thị bên dưới phần cấu hình PITR.
+
+Một bản sao lưu có trạng thái sau cho thấy cơ chế bảo vệ dữ liệu đang hoạt động:
+
+```text
+Status: Available
+```
+
+Bản sao lưu này có thể được sử dụng để khôi phục bảng trong trường hợp dữ liệu bị chỉnh sửa hoặc xóa nhầm.
+
+![Trạng thái bản sao lưu DynamoDB](../../../images/A7.png)
+
+> **Lưu ý:** Ảnh thứ ba và ảnh thứ tư hiện đang hiển thị nội dung gần giống nhau trong tab Backups. Bạn có thể dùng một ảnh để minh họa PITR và ảnh còn lại để minh họa danh sách Backup, hoặc thay ảnh thứ tư bằng ảnh DynamoDB Streams ở bước sau.
+
+---
 
 ##### Mã hóa dữ liệu
 
-Dữ liệu được mã hóa bằng:
+Bảng DynamoDB được mã hóa bằng khóa AWS KMS.
 
-```text
-AWS KMS Customer Managed Key
-```
-
-Khóa KMS được khai báo trong AWS SAM với tên:
+Trong AWS SAM Template, khóa mã hóa được khai báo với tên:
 
 ```text
 DataKMSKey
 ```
 
-##### Point-in-Time Recovery (PITR)
+Cấu hình này giúp bảo vệ dữ liệu lưu trữ và cho phép quản trị viên kiểm soát quyền sử dụng khóa thông qua AWS IAM và AWS KMS Key Policy.
 
-Đảm bảo **Point-in-Time Recovery** đã được bật.
+Cấu hình mã hóa mong đợi:
 
-Tính năng này giúp khôi phục bảng về bất kỳ thời điểm nào trong khoảng thời gian được AWS hỗ trợ.
+```text
+Encryption type: AWS KMS
+Key type: Customer Managed Key
+```
 
-PITR giúp bảo vệ dữ liệu khỏi:
-
-+ Xóa nhầm dữ liệu.
-+ Lỗi cập nhật ứng dụng.
-+ Hỏng dữ liệu.
-+ Sai sót trong quá trình vận hành.
+---
 
 ##### DynamoDB Streams
 
-Đảm bảo DynamoDB Streams được bật với chế độ:
+Mở tab **Exports and streams** và kiểm tra DynamoDB Streams đã được bật với chế độ:
 
 ```text
 NEW_AND_OLD_IMAGES
 ```
 
-Chế độ này lưu lại cả dữ liệu trước và sau khi thay đổi.
+Cấu hình này lưu lại cả phiên bản trước và phiên bản sau của mỗi bản ghi khi dữ liệu được thay đổi.
 
----
+DynamoDB Streams giúp các dịch vụ phía sau xác định:
 
-#### 4. Khai báo DynamoDB trong AWS SAM
++ Bản ghi nào vừa được tạo.
++ Bản ghi nào đã được cập nhật hoặc xóa.
++ Thuộc tính nào đã thay đổi.
++ Giá trị cũ của dữ liệu.
++ Giá trị mới của dữ liệu.
 
-Ví dụ cấu hình trong `template.yaml`:
-
-```yaml
-SaaSAttendanceTable:
-  Type: AWS::DynamoDB::Table
-  Properties:
-    TableName: smart-attendance-database
-
-    BillingMode: PAY_PER_REQUEST
-
-    AttributeDefinitions:
-      - AttributeName: PK
-        AttributeType: S
-      - AttributeName: SK
-        AttributeType: S
-
-    KeySchema:
-      - AttributeName: PK
-        KeyType: HASH
-      - AttributeName: SK
-        KeyType: RANGE
-
-    StreamSpecification:
-      StreamViewType: NEW_AND_OLD_IMAGES
-
-    PointInTimeRecoverySpecification:
-      PointInTimeRecoveryEnabled: true
-
-    SSESpecification:
-      SSEEnabled: true
-      SSEType: KMS
-      KMSMasterKeyId: !Ref DataKMSKey
-```
-
----
-
-#### 5. Thêm dữ liệu Tenant
-
-```bash
-aws dynamodb put-item \
---table-name smart-attendance-database \
-...
-```
-
-Sau đó kiểm tra:
-
-```bash
-aws dynamodb get-item \
---table-name smart-attendance-database \
-...
-```
-
----
-
-#### 6. Thêm dữ liệu người dùng
-
-```bash
-aws dynamodb put-item \
---table-name smart-attendance-database \
-...
-```
-
-Người dùng sẽ được lưu cùng Partition Key của doanh nghiệp.
-
----
-
-#### 7. Thêm bản ghi chấm công
-
-```bash
-aws dynamodb put-item \
---table-name smart-attendance-database \
-...
-```
-
-Truy vấn toàn bộ dữ liệu của doanh nghiệp:
-
-```bash
-aws dynamodb query \
---table-name smart-attendance-database \
-...
-```
-
-Chỉ lấy dữ liệu chấm công:
-
-```bash
-aws dynamodb query \
---table-name smart-attendance-database \
-...
-```
-
----
-
-#### 8. DynamoDB Streams và Change Data Capture
-
-Mỗi khi dữ liệu được:
-
-+ Thêm mới
-+ Cập nhật
-+ Xóa
-
-DynamoDB Streams sẽ tự động tạo một bản ghi sự kiện.
-
-Ví dụ khi **CheckInFunction** ghi dữ liệu chấm công, DynamoDB Streams sẽ sinh ra một Stream Record chứa thông tin vừa được thêm.
-
----
-
-#### 9. Tích hợp EventBridge Pipes
-
-Hệ thống sử dụng **Amazon EventBridge Pipes** để chuyển dữ liệu từ DynamoDB Streams sang EventBridge Event Bus.
-
-Ví dụ cấu hình:
-
-```yaml
-DdbToEventBridgePipe:
-  Type: AWS::Pipes::Pipe
-  Properties:
-    Name: smart-attendance-ddb-stream-pipe
-    ...
-```
-
-Luồng xử lý:
-
-```text
-CheckInFunction
-      ↓
-Amazon DynamoDB
-      ↓
-DynamoDB Streams
-      ↓
-Amazon EventBridge Pipe
-      ↓
-EventBridge Event Bus
-      ↓
-Notification / Report Workers
-```
-
----
-
-#### 10. Xử lý sự kiện bất đồng bộ
-
-Khi một nhân viên thực hiện Check-in:
-
-1. Lambda ghi dữ liệu vào DynamoDB.
-2. DynamoDB phản hồi thành công.
-3. API trả kết quả ngay cho người dùng.
-4. DynamoDB Streams ghi nhận thay đổi.
-5. EventBridge Pipe chuyển sự kiện.
-6. EventBridge gửi tới các dịch vụ đăng ký.
-7. Lambda nền xử lý gửi email, tạo báo cáo hoặc webhook.
-
-Kiến trúc này giúp:
-
-+ Giảm thời gian phản hồi API.
-+ Giảm sự phụ thuộc giữa các dịch vụ.
-+ Dễ mở rộng hệ thống.
-+ Tăng độ tin cậy.
-+ Dễ tích hợp với hệ thống bên ngoài.
-+ Hỗ trợ Retry khi xảy ra lỗi.
-
----
-
-#### 11. Kiểm tra DynamoDB Streams
-
-Kiểm tra Stream ARN:
-
-```bash
-aws dynamodb describe-table \
---table-name smart-attendance-database \
---query "Table.LatestStreamArn"
-```
-
-Liệt kê các Stream:
-
-```bash
-aws dynamodbstreams list-streams \
---table-name smart-attendance-database
-```
-
----
-
-#### 12. Kiểm tra EventBridge Pipe
-
-Liệt kê các Pipe:
-
-```bash
-aws pipes list-pipes
-```
-
-Kiểm tra chi tiết:
-
-```bash
-aws pipes describe-pipe \
---name smart-attendance-ddb-stream-pipe
-```
-
-Trạng thái mong đợi:
-
-```text
-RUNNING
-```
-
----
-
-#### Hoàn thành Module
-
-Sau khi hoàn thành phần này, bạn đã:
-
-+ Tìm hiểu mô hình Single-Table Design.
-+ Tạo dữ liệu mẫu cho Tenant, User và Attendance.
-+ Áp dụng cơ chế cô lập dữ liệu theo Tenant.
-+ Kiểm tra chế độ On-Demand của DynamoDB.
-+ Cấu hình mã hóa bằng AWS KMS.
-+ Bật Point-in-Time Recovery.
-+ Kích hoạt DynamoDB Streams với chế độ `NEW_AND_OLD_IMAGES`.
-+ Tích hợp DynamoDB Streams với Amazon EventBridge thông qua EventBridge Pipes.
-+ Chuẩn bị nền tảng cho luồng xử lý bất đồng bộ trong các bước tiếp theo.
-
-Tiếp theo, bạn sẽ triển khai quy trình tạo và gửi báo cáo chấm công bất đồng bộ bằng AWS Step Functions và Amazon SQS.
+DynamoDB Streams đóng vai trò là nguồn dữ liệu Change Data Capture cho Amazon EventBridge Pipes và các dịch vụ xử lý bất đồng bộ khác.

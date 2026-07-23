@@ -121,393 +121,146 @@ Open the Amazon DynamoDB Console:
 
 ```text
 AWS Management Console
-→ DynamoDB
+→ Amazon DynamoDB
 → Tables
-→ smart-attendance-database
 ```
 
-Review the table configuration in the **Overview** section.
-
-##### Capacity Mode
-
-The table uses:
+The deployed infrastructure creates a DynamoDB table named:
 
 ```text
-On-Demand
+smart-attendance-database
 ```
 
-On-Demand capacity automatically scales read and write throughput based on application traffic.
+Verify that the table appears in the table list and has the following configuration:
 
-This mode is suitable for the workshop because:
++ **Table status:** Active
++ **Partition key:** `PK`
++ **Sort key:** `SK`
++ **Read capacity mode:** On-Demand
++ **Write capacity mode:** On-Demand
 
-+ No capacity planning is required.
-+ Traffic may vary between tenants.
-+ The system only pays for actual read and write requests.
-+ It is appropriate for development, testing, and unpredictable workloads.
+![Smart Attendance DynamoDB Table](../../images/A4.png)
 
-##### Primary Key
+Select **smart-attendance-database** to open its configuration page.
 
-Confirm that the table uses:
+---
+
+##### General Table Configuration
+
+In the **Settings** tab, review the general information of the DynamoDB table.
+
+Confirm the following values:
 
 ```text
 Partition key: PK
 Sort key: SK
+Capacity mode: On-Demand
+Table status: Active
 ```
 
-The combination of `PK` and `SK` uniquely identifies each item in the table.
+The combination of `PK` and `SK` uniquely identifies each item stored in the table.
+
+The **On-Demand** capacity mode automatically adjusts read and write throughput according to application traffic without requiring manual capacity provisioning.
+
+This capacity mode is suitable for the Smart Attendance SaaS Platform because:
+
++ No initial capacity planning is required.
++ Workload volume may vary across different tenants.
++ The system only pays for actual read and write requests.
++ It supports unpredictable check-in and check-out traffic.
++ It simplifies database administration during development and demonstration.
+
+![DynamoDB General Settings](../../images/A5.png)
+
+---
+
+##### Point-in-Time Recovery
+
+Open the **Backups** tab and verify that **Point-in-Time Recovery (PITR)** is enabled.
+
+Expected status:
+
+```text
+Point-in-Time Recovery: On
+```
+
+PITR continuously protects the DynamoDB table and allows administrators to restore it to a selected point within the configured recovery period.
+
+This feature helps protect the system from:
+
++ Accidental deletion of attendance records.
++ Incorrect updates from application code.
++ Data corruption.
++ Operational mistakes.
++ Unexpected deployment errors.
+
+![DynamoDB Point-in-Time Recovery](../../images/A6.png)
+
+The console also displays information such as:
+
++ Backup recovery period.
++ Earliest available restore point.
++ Latest available restore point.
++ Existing system backups.
++ Backup status and creation time.
+
+---
+
+##### DynamoDB Backup Status
+
+Review the backup list displayed below the PITR configuration.
+
+A backup with the status shown below confirms that DynamoDB data protection is active:
+
+```text
+Status: Available
+```
+
+The backup can be used to restore the table when data is accidentally modified or deleted.
+
+![DynamoDB Backup Status](../../images/A7.png)
+
+> **Note:** The third and fourth screenshots currently show nearly identical DynamoDB Backup pages. You may use one image for the PITR configuration and the other for the backup list, or replace the fourth screenshot with a DynamoDB Streams screenshot later.
+
+---
 
 ##### Encryption
 
-The table is encrypted using:
+The DynamoDB table is encrypted using an AWS KMS key.
 
-```text
-AWS KMS Customer Managed Key
-```
-
-The KMS key is defined in the AWS SAM template as:
+The AWS SAM template defines the encryption key as:
 
 ```text
 DataKMSKey
 ```
 
-This configuration protects data at rest and allows administrators to control key permissions through AWS IAM and AWS KMS policies.
+This configuration protects data at rest and allows administrators to manage permissions through AWS IAM and AWS KMS key policies.
 
-##### Point-in-Time Recovery
+Expected encryption configuration:
 
-Verify that **Point-in-Time Recovery (PITR)** is enabled.
+```text
+Encryption type: AWS KMS
+Key type: Customer Managed Key
+```
 
-PITR allows the table to be restored to any point within the supported recovery window.
-
-This feature protects the database from:
-
-+ Accidental item deletion.
-+ Incorrect application updates.
-+ Data corruption.
-+ Operational mistakes.
+---
 
 ##### DynamoDB Streams
 
-Verify that DynamoDB Streams is enabled with:
+Open the **Exports and streams** tab and verify that DynamoDB Streams is enabled with:
 
 ```text
 NEW_AND_OLD_IMAGES
 ```
 
-This setting records both the previous and updated versions of each modified item.
+This configuration records both the previous version and the updated version of every modified item.
 
 It allows downstream services to determine:
 
 + Which item was created.
++ Which item was updated or deleted.
 + Which attributes changed.
-+ What the previous value was.
-+ What the new value is.
++ What the previous values were.
++ What the new values are.
 
----
-
-#### 4. Example AWS SAM DynamoDB Resource
-
-The DynamoDB table can be defined in `template.yaml` as follows:
-
-```yaml
-SaaSAttendanceTable:
-  Type: AWS::DynamoDB::Table
-  Properties:
-    TableName: smart-attendance-database
-
-    BillingMode: PAY_PER_REQUEST
-
-    AttributeDefinitions:
-      - AttributeName: PK
-        AttributeType: S
-      - AttributeName: SK
-        AttributeType: S
-
-    KeySchema:
-      - AttributeName: PK
-        KeyType: HASH
-      - AttributeName: SK
-        KeyType: RANGE
-
-    StreamSpecification:
-      StreamViewType: NEW_AND_OLD_IMAGES
-
-    PointInTimeRecoverySpecification:
-      PointInTimeRecoveryEnabled: true
-
-    SSESpecification:
-      SSEEnabled: true
-      SSEType: KMS
-      KMSMasterKeyId: !Ref DataKMSKey
-```
-
-This configuration provides:
-
-+ On-Demand billing.
-+ Composite key design.
-+ DynamoDB Streams.
-+ Point-in-Time Recovery.
-+ AWS KMS encryption.
-
----
-
-#### 5. Insert a Tenant Record
-
-You can create a sample tenant record using AWS CLI:
-
-```bash
-aws dynamodb put-item \
-  --table-name smart-attendance-database \
-  --item '{
-    "PK": {"S": "TENANT#company-001"},
-    "SK": {"S": "METADATA"},
-    "tenantName": {"S": "Demo Company"},
-    "plan": {"S": "STANDARD"},
-    "status": {"S": "ACTIVE"},
-    "createdAt": {"S": "2026-07-22T00:00:00Z"}
-  }'
-```
-
-Verify the item:
-
-```bash
-aws dynamodb get-item \
-  --table-name smart-attendance-database \
-  --key '{
-    "PK": {"S": "TENANT#company-001"},
-    "SK": {"S": "METADATA"}
-  }'
-```
-
----
-
-#### 6. Insert a User Profile
-
-Create a sample user profile:
-
-```bash
-aws dynamodb put-item \
-  --table-name smart-attendance-database \
-  --item '{
-    "PK": {"S": "TENANT#company-001"},
-    "SK": {"S": "USER#user-1001"},
-    "email": {"S": "employee@example.com"},
-    "fullName": {"S": "Demo Employee"},
-    "role": {"S": "EMPLOYEE"},
-    "department": {"S": "Engineering"}
-  }'
-```
-
-This user is stored in the same tenant partition as the tenant metadata.
-
----
-
-#### 7. Insert an Attendance Record
-
-Create a sample check-in record:
-
-```bash
-aws dynamodb put-item \
-  --table-name smart-attendance-database \
-  --item '{
-    "PK": {"S": "TENANT#company-001"},
-    "SK": {"S": "ATTENDANCE#user-1001#2026-07-22T08:00:00Z"},
-    "userId": {"S": "user-1001"},
-    "checkInTime": {"S": "2026-07-22T08:00:00Z"},
-    "status": {"S": "CHECKED_IN"},
-    "location": {"S": "Ho Chi Minh City"}
-  }'
-```
-
-Query all records belonging to the tenant:
-
-```bash
-aws dynamodb query \
-  --table-name smart-attendance-database \
-  --key-condition-expression "PK = :pk" \
-  --expression-attribute-values '{
-    ":pk": {"S": "TENANT#company-001"}
-  }'
-```
-
-Query only attendance records:
-
-```bash
-aws dynamodb query \
-  --table-name smart-attendance-database \
-  --key-condition-expression "PK = :pk AND begins_with(SK, :sk)" \
-  --expression-attribute-values '{
-    ":pk": {"S": "TENANT#company-001"},
-    ":sk": {"S": "ATTENDANCE#"}
-  }'
-```
-
----
-
-#### 8. DynamoDB Streams Change Data Capture
-
-DynamoDB Streams captures item-level changes whenever an item is:
-
-+ Created.
-+ Updated.
-+ Deleted.
-
-For example, when the `CheckInFunction` writes a new attendance item, DynamoDB Streams creates a stream record containing the new database image.
-
-A simplified stream event looks like:
-
-```json
-{
-  "eventName": "INSERT",
-  "dynamodb": {
-    "Keys": {
-      "PK": {
-        "S": "TENANT#company-001"
-      },
-      "SK": {
-        "S": "ATTENDANCE#user-1001#2026-07-22T08:00:00Z"
-      }
-    },
-    "NewImage": {
-      "status": {
-        "S": "CHECKED_IN"
-      },
-      "userId": {
-        "S": "user-1001"
-      }
-    }
-  }
-}
-```
-
-This event can be forwarded to other AWS services without increasing the response time of the original Check-in API.
-
----
-
-#### 9. EventBridge Pipe Integration
-
-The architecture uses **Amazon EventBridge Pipes** to connect DynamoDB Streams with the default EventBridge Event Bus.
-
-The AWS SAM resource can be defined as follows:
-
-```yaml
-DdbToEventBridgePipe:
-  Type: AWS::Pipes::Pipe
-  Properties:
-    Name: smart-attendance-ddb-stream-pipe
-
-    RoleArn: !GetAtt EventBridgePipeRole.Arn
-
-    Source: !GetAtt SaaSAttendanceTable.StreamArn
-
-    SourceParameters:
-      DynamoDBStreamParameters:
-        StartingPosition: LATEST
-        BatchSize: 10
-
-    Target: !Sub arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default
-```
-
-The event flow is:
-
-```text
-CheckInFunction
-      ↓
-Amazon DynamoDB
-      ↓
-DynamoDB Streams
-      ↓
-Amazon EventBridge Pipe
-      ↓
-EventBridge Event Bus
-      ↓
-Notification or Report Workers
-```
-
----
-
-#### 10. Asynchronous Event Processing
-
-When a new attendance item is committed:
-
-1. The Check-in Lambda writes the item to DynamoDB.
-2. DynamoDB returns a successful response to the Lambda function.
-3. The API responds to the user without waiting for background tasks.
-4. DynamoDB Streams captures the new record.
-5. EventBridge Pipe forwards the change event.
-6. EventBridge routes the event to subscribed targets.
-7. Background Lambda functions process notifications, reports, or webhooks.
-
-This design provides several benefits:
-
-+ Lower Check-in API latency.
-+ Loose coupling between services.
-+ Independent scaling of background workers.
-+ Improved reliability.
-+ Easier integration with external systems.
-+ Better support for retries and failure handling.
-
----
-
-#### 11. Verify DynamoDB Streams
-
-To verify the stream using AWS CLI:
-
-```bash
-aws dynamodb describe-table \
-  --table-name smart-attendance-database \
-  --query "Table.LatestStreamArn"
-```
-
-Expected output:
-
-```text
-arn:aws:dynamodb:ap-southeast-1:123456789012:table/smart-attendance-database/stream/2026-07-22T00:00:00.000
-```
-
-List the available stream:
-
-```bash
-aws dynamodbstreams list-streams \
-  --table-name smart-attendance-database
-```
-
----
-
-#### 12. Verify the EventBridge Pipe
-
-List EventBridge Pipes:
-
-```bash
-aws pipes list-pipes
-```
-
-Retrieve the pipe details:
-
-```bash
-aws pipes describe-pipe \
-  --name smart-attendance-ddb-stream-pipe
-```
-
-Verify that the pipe status is:
-
-```text
-RUNNING
-```
-
----
-
-#### Module Completion
-
-After completing this module, you have:
-
-+ Reviewed the DynamoDB Single-Table Design.
-+ Created tenant, user, and attendance records.
-+ Applied tenant isolation through the partition key.
-+ Verified On-Demand capacity mode.
-+ Confirmed AWS KMS encryption.
-+ Enabled Point-in-Time Recovery.
-+ Enabled DynamoDB Streams with `NEW_AND_OLD_IMAGES`.
-+ Connected DynamoDB Streams to Amazon EventBridge through EventBridge Pipes.
-+ Prepared the event-driven data flow for asynchronous processing.
-
-You are now ready to continue with the next module and build the asynchronous attendance report workflow.
+DynamoDB Streams provides the Change Data Capture source used by Amazon EventBridge Pipes and other asynchronous processing services.
