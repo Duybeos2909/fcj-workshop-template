@@ -304,8 +304,6 @@ AWS Security Hub: **10.00 USD/tháng** (Giám sát tình trạng bảo mật và
 
 **Tổng chi phí hạ tầng ước tính:** **Khoảng 57.24 USD/tháng**
 
-**Chi phí khởi tạo (Upfront Cost):** **0.00 USD**
-
 **Chi phí ước tính mỗi năm:** **Khoảng 686.88 USD/năm**
 
 Chi phí trên phù hợp với môi trường triển khai thử nghiệm (Prototype) và nghiên cứu, bao gồm đầy đủ các thành phần của hệ thống Serverless, bảo mật, giám sát, CI/CD và phân phối nội dung toàn cầu.

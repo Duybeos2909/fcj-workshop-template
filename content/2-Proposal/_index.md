@@ -424,8 +424,6 @@ AWS Security Hub: **$10.00/month** (Security posture management and compliance m
 
 **Estimated Total Infrastructure Cost:** **Approximately USD 57.24/month**
 
-**Estimated Upfront Cost:** **USD 0.00**
-
 **Estimated Annual Cost:** **Approximately USD 686.88/year**
 
 The estimated infrastructure cost is appropriate for a prototype deployment that includes serverless application hosting, security monitoring, CI/CD automation, centralized logging, and global content delivery.
