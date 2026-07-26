@@ -47,5 +47,4 @@ Sau khi hoàn thành workshop, bạn sẽ có thể:
 + **Mức độ:** Trung cấp đến nâng cao.
 
 #### Link dự án
-https://duybeos2909.github.io/smart-attendance-saas/
 https://github.com/nganh25/smart-attendance-saas.git
