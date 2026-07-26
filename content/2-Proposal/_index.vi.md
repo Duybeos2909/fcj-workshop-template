@@ -254,73 +254,80 @@ Kiểm thử, tối ưu và hoàn thiện tài liệu.
 
 ---
 
-## 6. Ước tính chi phí hạ tầng
+## 6. Dự toán chi phí (Budget Estimation)
 
-Chi phí hạ tầng được ước tính bằng **AWS Pricing Calculator** cho mô hình triển khai thử nghiệm của **Smart Attendance SaaS Platform** tại khu vực **Asia Pacific (Singapore)**.
+Chi phí hạ tầng được ước tính bằng **AWS Pricing Calculator** cho việc triển khai hệ thống **Smart Attendance SaaS Platform** tại khu vực **Asia Pacific (Singapore)**. Mô hình ước tính dựa trên khoảng **500 người dùng hoạt động hàng tháng (Monthly Active Users - MAU)**, **500.000 yêu cầu API mỗi tháng**, phù hợp với quy mô triển khai thử nghiệm và môi trường học tập.
 
 ### Chi phí hạ tầng
 
-**Các dịch vụ AWS:**
+**Các dịch vụ AWS sử dụng:**
 
-Amazon Route 53: **15.50 USD/tháng** (01 Hosted Zone dùng để quản lý tên miền và định tuyến DNS).
+Amazon Route 53: **15.50 USD/tháng** (Quản lý DNS và định tuyến tên miền cho hệ thống, bao gồm 01 Hosted Zone và các tính năng định tuyến được cấu hình trong môi trường demo.)
 
-Amazon CloudFront: **4.32 USD/tháng** (Mạng phân phối nội dung (CDN) toàn cầu cho React SPA với khoảng 30 GB dữ liệu truyền ra Internet và 500.000 HTTPS requests mỗi tháng).
+Amazon CloudFront: **4.32 USD/tháng** (Mạng phân phối nội dung (CDN) giúp phân phối giao diện React SPA với khoảng 30 GB dữ liệu truyền ra Internet và 500.000 yêu cầu HTTPS mỗi tháng.)
 
-AWS WAF v2: **11.00 USD/tháng** (01 Web ACL với 03 luật bảo vệ nhằm chống tấn công web, giới hạn tốc độ truy cập và lọc các yêu cầu độc hại).
+AWS Shield Standard: **0.00 USD/tháng** (Được tích hợp miễn phí cùng CloudFront và Route 53 nhằm bảo vệ hệ thống trước các cuộc tấn công DDoS cơ bản.)
 
-Amazon S3: **0.70 USD/tháng** (Lưu trữ giao diện React SPA và các tệp báo cáo với khoảng 15 GB dữ liệu chuẩn).
+AWS WAF v2: **11.00 USD/tháng** (01 Web ACL với 03 luật bảo mật để giới hạn tốc độ truy cập và bảo vệ ứng dụng Web.)
 
-Amazon Cognito: **0.00 USD/tháng** (500 người dùng hoạt động hàng tháng (MAU), vẫn nằm trong Free Tier).
+Amazon S3: **0.70 USD/tháng** (Lưu trữ giao diện Frontend và các báo cáo chấm công với khoảng 15 GB dung lượng lưu trữ chuẩn.)
 
-AWS Secrets Manager: **0.45 USD/tháng** (01 Secret dùng để lưu trữ thông tin nhạy cảm và khóa cấu hình của hệ thống).
+Amazon Cognito: **0.00 USD/tháng** (Khoảng 500 người dùng hoạt động hàng tháng, nằm trong mức miễn phí của AWS.)
 
-Amazon API Gateway (HTTP API): **0.63 USD/tháng** (Khoảng 500.000 yêu cầu HTTP API mỗi tháng sử dụng JWT Authorizer).
+AWS Secrets Manager: **0.45 USD/tháng** (Lưu trữ an toàn các thông tin nhạy cảm như khóa API, mật khẩu và cấu hình hệ thống.)
 
-AWS Lambda: **1.35 USD/tháng** (Xử lý các chức năng đăng nhập, chấm công, quản trị, tạo báo cáo và webhook theo mô hình Serverless).
+Amazon API Gateway (HTTP API): **0.63 USD/tháng** (Khoảng 500.000 yêu cầu HTTP API mỗi tháng sử dụng cơ chế xác thực JWT.)
 
-AWS Step Functions: **0.02 USD/tháng** (Điều phối quy trình tạo báo cáo bất đồng bộ bằng Express Workflow).
+AWS Lambda: **1.35 USD/tháng** (Xử lý các chức năng xác thực, chấm công, quản trị, báo cáo và webhook theo kiến trúc Serverless.)
 
-Amazon SQS: **0.20 USD/tháng** (Hàng đợi xử lý bất đồng bộ và Dead Letter Queue).
+AWS Step Functions: **0.02 USD/tháng** (Điều phối các quy trình xử lý bất đồng bộ như tạo báo cáo chấm công.)
 
-Amazon DynamoDB (On-Demand): **0.85 USD/tháng** (Cơ sở dữ liệu Single-Table Design với khoảng 2 GB dữ liệu và bật DynamoDB Streams).
+Amazon SQS: **0.20 USD/tháng** (Hàng đợi Standard Queue và Dead Letter Queue phục vụ xử lý bất đồng bộ.)
 
-AWS Key Management Service (KMS): **1.30 USD/tháng** (01 Customer Managed Key với khoảng 100.000 yêu cầu mã hóa/giải mã mỗi tháng).
+Amazon DynamoDB On-Demand: **0.85 USD/tháng** (Lưu trữ dữ liệu theo mô hình Single-Table Design với khoảng 2 GB dữ liệu và bật DynamoDB Streams.)
 
-Amazon EventBridge: **0.02 USD/tháng** (Định tuyến sự kiện giữa các dịch vụ Serverless).
+AWS Key Management Service (KMS): **1.30 USD/tháng** (01 Customer Managed Key dùng để mã hóa dữ liệu cùng khoảng 100.000 yêu cầu mã hóa mỗi tháng.)
 
-Amazon Simple Email Service (SES): **0.56 USD/tháng** (Khoảng 5.000 email giao dịch gửi báo cáo và thông báo hệ thống).
+Amazon EventBridge: **0.02 USD/tháng** (Định tuyến các sự kiện trong kiến trúc hướng sự kiện (Event-Driven Architecture).)
 
-Amazon CloudWatch: **1.21 USD/tháng** (Thu thập log, giám sát hệ thống, Dashboard và CloudWatch Alarms).
+Amazon Simple Notification Service (SNS): **0.00 USD/tháng** (Gửi thông báo nội bộ giữa Lambda, SQS và SES trong phạm vi khối lượng sử dụng của hệ thống.)
 
-AWS X-Ray: **0.13 USD/tháng** (Theo dõi Distributed Tracing cho Lambda và API Gateway với tỷ lệ lấy mẫu 5%).
+Amazon Simple Email Service (SES): **0.56 USD/tháng** (Khoảng 5.000 email giao dịch mỗi tháng dùng để gửi mã OTP, báo cáo chấm công và thông báo hệ thống.)
 
-AWS CodeBuild: **9.00 USD/tháng** (Môi trường Build phục vụ quá trình CI/CD và triển khai ứng dụng).
+Amazon CloudWatch: **1.21 USD/tháng** (Thu thập log, giám sát hệ thống, Dashboard, Metrics và CloudWatch Alarms.)
 
-AWS CodePipeline: **0.00 USD/tháng** (01 Pipeline triển khai tự động, nằm trong mức sử dụng ước tính).
+AWS X-Ray: **0.13 USD/tháng** (Theo dõi và phân tích luồng xử lý của API Gateway và Lambda với tỷ lệ lấy mẫu 5%.)
 
-AWS Security Hub: **10.00 USD/tháng** (Giám sát tình trạng bảo mật và tuân thủ của môi trường AWS).
+AWS CodeBuild: **9.00 USD/tháng** (Tự động build và đóng gói ứng dụng trong quy trình CI/CD.)
+
+AWS CodePipeline: **0.00 USD/tháng** (01 quy trình CI/CD hoạt động trong giới hạn miễn phí của AWS.)
+
+AWS Security Hub: **10.00 USD/tháng** (Giám sát bảo mật và đánh giá mức độ tuân thủ của toàn bộ môi trường AWS.)
 
 ---
 
-**Tổng chi phí hạ tầng ước tính:** **Khoảng 57.24 USD/tháng**
+**Chi phí khởi tạo (Upfront Cost): 0.00 USD**
 
-**Chi phí ước tính mỗi năm:** **Khoảng 686.88 USD/năm**
+**Tổng chi phí hạ tầng ước tính: khoảng 57.24 USD/tháng**
 
-Chi phí trên phù hợp với môi trường triển khai thử nghiệm (Prototype) và nghiên cứu, bao gồm đầy đủ các thành phần của hệ thống Serverless, bảo mật, giám sát, CI/CD và phân phối nội dung toàn cầu.
+**Tổng chi phí ước tính trong 01 năm: khoảng 686.88 USD/năm**
+
+Chi phí trên phù hợp với một hệ thống mẫu (Prototype) triển khai theo kiến trúc **AWS Serverless**, bao gồm lưu trữ giao diện, xử lý nghiệp vụ, cơ sở dữ liệu, cơ chế gửi email, xử lý bất đồng bộ, bảo mật, giám sát hệ thống và quy trình CI/CD tự động.
 
 Chi phí thực tế có thể thay đổi tùy thuộc vào:
 
-- Số lượng tổ chức (tenant) sử dụng hệ thống.
-- Số lượng người dùng đăng ký và hoạt động.
-- Khối lượng API Requests.
+- Số lượng doanh nghiệp (Tenant) sử dụng hệ thống.
+- Số lượng người dùng đăng ký.
+- Lưu lượng truy cập và số lượng API Request.
 - Tần suất và thời gian thực thi của AWS Lambda.
 - Lưu lượng đọc/ghi của Amazon DynamoDB.
 - Dung lượng truyền tải qua Amazon CloudFront.
-- Số lượng báo cáo được tạo mỗi tháng.
+- Số lượng báo cáo được tạo.
 - Số lượng email gửi qua Amazon SES.
-- Dung lượng log và mức độ giám sát trên Amazon CloudWatch.
-- Tần suất Build và Deploy của CI/CD Pipeline.
-- Khối lượng kiểm tra và giám sát bảo mật của AWS Security Hub.
+- Số lượng thông báo được gửi qua Amazon SNS.
+- Dung lượng log và mức sử dụng Amazon CloudWatch.
+- Tần suất Build/Deploy của quy trình CI/CD.
+- Mức độ giám sát và kiểm tra bảo mật trên AWS Security Hub.
 
 ## 7. Đánh giá rủi ro
 

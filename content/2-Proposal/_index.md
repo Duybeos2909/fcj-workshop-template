@@ -376,57 +376,63 @@ Perform integration and performance testing, verify CloudFront content delivery,
 
 ## 6. Budget Estimation
 
-The infrastructure cost was estimated using the **AWS Pricing Calculator** for a small-scale deployment of the **Smart Attendance SaaS Platform** in the **Asia Pacific (Singapore)** Region. The estimation assumes approximately **500 monthly active users (MAU)**, **500,000 API requests per month**, and a demonstration-scale workload suitable for educational and prototype environments.
+The infrastructure cost was estimated using the **AWS Pricing Calculator** for a small-scale deployment of the **Smart Attendance SaaS Platform** in the **Asia Pacific (Singapore)** Region. The estimation assumes approximately **500 Monthly Active Users (MAU)**, **500,000 API requests per month**, and a demonstration-scale workload suitable for educational and prototype environments.
 
 ### Infrastructure Costs
 
 **AWS Services:**
 
-Amazon Route 53: **$15.50/month** (1 Hosted Zone for DNS management and domain routing).
+Amazon Route 53: **$15.50/month** (DNS hosting and routing services for the application, including one Hosted Zone and Route 53 routing features configured for the demonstration environment.)
 
-Amazon CloudFront: **$4.32/month** (Global CDN for React SPA distribution, approximately 30 GB outbound traffic and 500,000 HTTPS requests).
+Amazon CloudFront: **$4.32/month** (Global CDN for React SPA distribution with approximately 30 GB outbound traffic and 500,000 HTTPS requests.)
 
-AWS WAF v2: **$11.00/month** (1 Web ACL with three security rules for rate limiting and web application protection).
+AWS Shield Standard: **$0.00/month** (Included at no additional cost to provide baseline DDoS protection for Amazon CloudFront and Amazon Route 53.)
 
-Amazon S3: **$0.70/month** (Frontend hosting and attendance report storage with approximately 15 GB Standard storage).
+AWS WAF v2: **$11.00/month** (One Web ACL with three security rules for rate limiting and web application protection.)
 
-Amazon Cognito: **$0.00/month** (500 Monthly Active Users within the AWS Free Tier).
+Amazon S3: **$0.70/month** (Frontend hosting and attendance report storage using approximately 15 GB of S3 Standard storage.)
 
-AWS Secrets Manager: **$0.45/month** (1 secret used for application credentials and secure configuration management).
+Amazon Cognito: **$0.00/month** (Approximately 500 Monthly Active Users within the AWS Free Tier.)
 
-Amazon API Gateway (HTTP API): **$0.63/month** (Approximately 500,000 HTTP API requests with JWT authorization).
+AWS Secrets Manager: **$0.45/month** (One secret for securely storing application credentials and configuration values.)
 
-AWS Lambda: **$1.35/month** (Serverless compute for authentication, attendance processing, reporting, administration, and webhook functions).
+Amazon API Gateway (HTTP API): **$0.63/month** (Approximately 500,000 HTTP API requests secured using JWT authorization.)
 
-AWS Step Functions: **$0.02/month** (Express Workflow orchestration for asynchronous report generation).
+AWS Lambda: **$1.35/month** (Serverless compute for authentication, attendance processing, administration, report generation, and webhook handling.)
 
-Amazon SQS: **$0.20/month** (Standard Queue and Dead Letter Queue for asynchronous message processing).
+AWS Step Functions: **$0.02/month** (Express Workflow orchestration for asynchronous attendance report generation.)
 
-Amazon DynamoDB On-Demand: **$0.85/month** (Single-Table Design with approximately 2 GB storage and DynamoDB Streams enabled).
+Amazon SQS: **$0.20/month** (Standard Queue and Dead Letter Queue for asynchronous message processing.)
 
-AWS Key Management Service (KMS): **$1.30/month** (1 Customer Managed Key with approximately 100,000 cryptographic requests).
+Amazon DynamoDB On-Demand: **$0.85/month** (Single-Table Design with approximately 2 GB of storage and DynamoDB Streams enabled.)
 
-Amazon EventBridge: **$0.02/month** (Event routing for asynchronous serverless workflows).
+AWS Key Management Service (KMS): **$1.30/month** (One Customer Managed Key with approximately 100,000 cryptographic requests.)
 
-Amazon Simple Email Service (SES): **$0.56/month** (Approximately 5,000 transactional emails for attendance reports and notifications).
+Amazon EventBridge: **$0.02/month** (Event routing for serverless event-driven workflows.)
 
-Amazon CloudWatch: **$1.21/month** (Application logs, monitoring dashboards, metrics, and CloudWatch alarms).
+Amazon Simple Notification Service (SNS): **$0.00/month** (Standard Topic used for internal event notifications between Lambda, SQS, and SES within the estimated workload.)
 
-AWS X-Ray: **$0.13/month** (Distributed tracing for Lambda and API Gateway requests with 5% sampling rate).
+Amazon Simple Email Service (SES): **$0.56/month** (Approximately 5,000 transactional emails for attendance reports, OTP verification, and system notifications.)
 
-AWS CodeBuild: **$9.00/month** (Build environment for automated application packaging and deployment).
+Amazon CloudWatch: **$1.21/month** (Application logs, monitoring dashboards, metrics, and CloudWatch alarms.)
 
-AWS CodePipeline: **$0.00/month** (One CI/CD pipeline operating within the estimated usage level).
+AWS X-Ray: **$0.13/month** (Distributed tracing for Lambda and API Gateway requests using a 5% sampling rate.)
 
-AWS Security Hub: **$10.00/month** (Security posture management and compliance monitoring for the AWS environment).
+AWS CodeBuild: **$9.00/month** (Build environment for automated application packaging and deployment.)
+
+AWS CodePipeline: **$0.00/month** (One CI/CD pipeline operating within the estimated usage level.)
+
+AWS Security Hub: **$10.00/month** (Security posture management and compliance monitoring for the AWS environment.)
 
 ---
+
+**Estimated Upfront Cost:** **USD 0.00**
 
 **Estimated Total Infrastructure Cost:** **Approximately USD 57.24/month**
 
 **Estimated Annual Cost:** **Approximately USD 686.88/year**
 
-The estimated infrastructure cost is appropriate for a prototype deployment that includes serverless application hosting, security monitoring, CI/CD automation, centralized logging, and global content delivery.
+The estimated infrastructure cost is appropriate for a prototype deployment that includes serverless application hosting, event-driven processing, security monitoring, CI/CD automation, centralized logging, and global content delivery.
 
 The actual monthly cost may vary depending on:
 
@@ -438,6 +444,7 @@ The actual monthly cost may vary depending on:
 - CloudFront data transfer volume.
 - Number of generated attendance reports.
 - Amazon SES email volume.
+- Amazon SNS notification volume.
 - CloudWatch log ingestion and monitoring usage.
 - CI/CD build frequency.
 - Security monitoring and compliance workload.
