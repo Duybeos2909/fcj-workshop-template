@@ -45,3 +45,6 @@ After completing this workshop, you will be able to:
 
 + **Estimated Time:** 60–90 minutes.
 + **Difficulty Level:** Intermediate to Advanced.
+
+#### Link Project
+https://duybeos2909.github.io/smart-attendance-saas/

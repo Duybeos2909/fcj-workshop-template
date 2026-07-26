@@ -45,3 +45,6 @@ Sau khi hoàn thành workshop, bạn sẽ có thể:
 
 + **Thời gian thực hiện:** 60–90 phút.
 + **Mức độ:** Trung cấp đến nâng cao.
+
+#### Link dự án
+https://duybeos2909.github.io/smart-attendance-saas/
