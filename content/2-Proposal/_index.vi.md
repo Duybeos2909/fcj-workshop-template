@@ -306,8 +306,6 @@ AWS Security Hub: **10.00 USD/tháng** (Giám sát bảo mật và đánh giá m
 
 ---
 
-**Chi phí khởi tạo (Upfront Cost): 0.00 USD**
-
 **Tổng chi phí hạ tầng ước tính: khoảng 57.24 USD/tháng**
 
 **Tổng chi phí ước tính trong 01 năm: khoảng 686.88 USD/năm**

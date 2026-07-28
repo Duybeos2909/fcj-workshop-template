@@ -426,8 +426,6 @@ AWS Security Hub: **$10.00/month** (Security posture management and compliance m
 
 ---
 
-**Estimated Upfront Cost:** **USD 0.00**
-
 **Estimated Total Infrastructure Cost:** **Approximately USD 57.24/month**
 
 **Estimated Annual Cost:** **Approximately USD 686.88/year**
